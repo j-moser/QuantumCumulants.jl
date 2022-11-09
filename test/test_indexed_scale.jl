@@ -42,10 +42,9 @@ extra_indices = [q,r]
 eqs_com = complete(eqs_2;extra_indices=extra_indices);
 @test length(eqs_com) == 15
 
-s_1 = scale(eqs_com; h=ha)
-s_2 = scale(eqs_com; h=hc)
+s_1 = scale(eqs_com; h=[ha])
+s_2 = scale(eqs_com; h=[hc])
 
-@test length(s_1) == length(s_2)
 @test !(s_1.equations == s_2.equations)
 @test !(s_1.states == s_2.states)
 

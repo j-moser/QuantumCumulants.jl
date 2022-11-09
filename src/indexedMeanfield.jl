@@ -657,9 +657,10 @@ function getOps(term::SymbolicUtils.Mul;scaling::Bool=false,kwargs...)
 end
 function getOps(ops::Term{AvgSym, Nothing};scaling::Bool=false,h=nothing,kwargs...)
     args = arguments(ops)[1]
-    if typeof(args) <: QMul 
-        return getOps(args;scaling=scaling,kwargs...)
+    if args isa QMul
+        return getOps(args;scaling=scaling,h=h,kwargs...)
     elseif scaling && (args isa NumberedOperator || args isa IndexedOperator)
+        !isnothing(h) && hilbert(args).spaces[acts_on(args)] ∉ h && return Any[args]
         return Any[args.op]
     else #single op in term
         return Any[args]
@@ -669,7 +670,7 @@ function getOps(ops::QMul;scaling::Bool=false,h=nothing,kwargs...)
     arr = Any[]
     for arg in ops.args_nc
         if scaling && arg isa NumberedOperator
-            push!(arr,arg.op)
+            !isnothing(h) && hilbert(arg).spaces[acts_on(arg)] ∉ h ? push!(arr,arg) : push!(arr,arg.op)
         elseif scaling && arg isa IndexedOperator
             if !=(h,nothing)
                 if isequal(arg.ind.specHilb, h)

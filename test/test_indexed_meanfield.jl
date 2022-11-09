@@ -143,8 +143,8 @@ eqs_com = complete(eqs_2;extra_indices=extra_indices);
 
 @test isequal(sort([k,m,n,l,q,r]),sort(qc.get_all_indices(eqs_com)))
 
-e_1 = evaluate(eqs_com; h=ha,mapping=(N=>5))
-e_2 = evaluate(eqs_com; h=hc,mapping=(N2=>6))
+e_1 = evaluate(eqs_com; h=[ha],mapping=(N=>5))
+e_2 = evaluate(eqs_com; h=[hc],mapping=(N2=>6))
 
 @test length(e_1) != length(e_2)
 @test !(e_1.equations == e_2.equations)
