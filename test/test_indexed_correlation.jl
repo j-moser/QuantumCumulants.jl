@@ -128,6 +128,12 @@ ps = [N, Δ, g, κ, Γ, R, ν]
 @test length(corr.de0) == 4
 @test length(corr.de) == 2
 
+all_states = [corr.de0.states;corr.de.states]
+m_de = find_missing(corr.de)
+filter!(x->x in all_states,m_de)
+filter!(x->x in conj.(all_states),m_de)
+@test isempty(m_de)
+
 S = Spectrum(corr, ps);
 
 prob_ss = SteadyStateProblem(prob)

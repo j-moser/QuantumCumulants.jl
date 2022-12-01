@@ -99,7 +99,6 @@ To get a closed set of equations we automatically complete the system. Since thi
 phase_invariant(x) = iszero(φ(x))
 
 
-# We use the extraIndices keyword to provide names for indices, that are needed for intermediate calculation
 eqs_c = complete(eqs;filter_func=phase_invariant)
 nothing # hide
 ```

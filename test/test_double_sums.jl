@@ -28,6 +28,9 @@ Dsum = DoubleSum(innerSum,ind(:j),[ind(:i)])
     DoubleSum(innerSum,ind(:j)), DoubleSum(SingleSum(σ(2,1,ind(:i)),ind(:i))*σ(1,2,ind(:j)),ind(:j))
 ))
 
+@test DoubleSum(σ(2,1,ind(:i))*σ(1,2,ind(:j)),[ind(:i),ind(:j)],Index[]) isa qc.QAdd
+@test_throws ErrorException DoubleSum(σ(2,1,ind(:i))*σ(1,2,ind(:j)),[ind(:i)],Index[])
+
 N_atoms = 4
 N_modes = 2
 
